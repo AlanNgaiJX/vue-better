@@ -22,6 +22,9 @@ export const router = new Router({
       path: '/B',
       name: 'comB',
       component: comB,
+      meta:{
+        isUseCache: false
+      },
       beforeEnter(to, from, next){
         console.log("、、、、beforeEnter、、、、");
         next();

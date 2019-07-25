@@ -13,6 +13,12 @@ export default {
 
     }
   },
+  beforeRouteLeave (to, from, next) {
+    if (to.name === 'comB') {
+      to.meta.isUseCache = true;
+    }
+    next();
+  },
   methods:{
     back(){
       this.$router.go(-1);

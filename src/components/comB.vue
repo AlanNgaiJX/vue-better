@@ -22,11 +22,13 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     console.log(">>>beforeRouteEnter<<<");
-    const isUseCache = to.params.isUseCache;
+    const isUseCache = to.meta.isUseCache;
     next((vm)=>{
-      if (typeof isUseCache !=='undefined' && !isUseCache) {
+      if (!isUseCache) {
         console.log("不使用缓存，重新获取数据");
         vm.fetchStroageStr();
+      }else{
+        to.meta.isUseCache = false;
       }
     });
   },
