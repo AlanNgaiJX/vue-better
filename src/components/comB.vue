@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>now is comB</h1>
+    <h1>now is comB, Q:{{q}}</h1>
     <h2>stroageStr in comB..{{stroageStr}}</h2>
     <button @click="fetchStroageStr()" class="btn-fetch">click here , fetch new stroageStr</button>
     <button class="btn-destroy" @click="destroyMyself">click Here , i will destroy myself</button>
@@ -17,59 +17,33 @@ export default {
   },
   data() {
     return {
-      stroageStr: ""
+      stroageStr: "",
+      q: ""
     };
   },
-  beforeRouteEnter (to, from, next) {
-    console.log(">>>beforeRouteEnter<<<");
-    const isUseCache = to.meta.isUseCache;
-    next((vm)=>{
-      if (!isUseCache) {
-        console.log("不使用缓存，重新获取数据");
+  beforeRouteEnter(to, from, next) {
+
+    
+    let cacheQueue = to.meta.cacheQueue;    
+    const fullPath = to.fullPath;
+    next(vm => {
+      vm.q = to.query.bNum;
+
+      if (!cacheQueue.includes(fullPath)) {
         vm.fetchStroageStr();
-      }else{
-        to.meta.isUseCache = false;
+        if (cacheQueue.length >=3) {
+          cacheQueue.shift();
+          cacheQueue.push(fullPath);
+        } else {
+          cacheQueue.push(fullPath);
+        }
+        console.log(cacheQueue);
+
       }
     });
   },
-  beforeRouteUpdated(to, from, next){
-    console.log(">>>beforeRouteUpdated<<<");
-    next();
-  },
-  beforeRouteLeave (to, from, next) {
-    console.log(">>>beforeRouteLeave<<<");
-    next();
-  },
-  beforeCreate() {
-    console.log("====Now beforeCreate Work====");
-  },
-  created() {
-    console.log("====Now created Work====");
-  },
-  beforeMount() {
-    console.log("====Now beforeMount Work====");
-  },
-  mounted() {
-    console.log("====Now mounted Work====");
-    // this.fetchStroageStr();
-  },
-  beforeUpdate() {
-    console.log("====Now beforeUpdate Work====");
-  },
-  updated() {
-    console.log("====Now updated Work====");
-  },
-  beforeDestroy() {
-    console.log("====Now beforeDestroy Work====");
-  },
-  destroyed() {
-    console.log("====Now destroyed Work====");
-  },
-  activated() {
-    console.log("====Now activated Work====");
-  },
-  deactivated() {
-    console.log("====Now deactivated Work====");
+  beforeRouteUpdate(){
+    console.log("beforeUpdate");
   },
   methods: {
     destroyMyself() {

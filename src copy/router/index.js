@@ -23,7 +23,11 @@ export const router = new Router({
       name: 'comB',
       component: comB,
       meta:{
-        cacheQueue:[]
+        isUseCache: false
+      },
+      beforeEnter(to, from, next){
+        console.log("、、、、beforeEnter、、、、");
+        next();
       }
     },
     {
@@ -34,14 +38,14 @@ export const router = new Router({
   ]
 });
 
-// router.beforeEach((to,from,next)=>{
-//   console.log("****beforeEach****");
-//   next();
-// });
-// router.beforeResolve((to,from,next)=>{
-//   console.log("****beforeResolve****");
-//   next();
-// });
-// router.afterEach((to,from,next)=>{
-//   console.log("****afterEach****");
-// });
+router.beforeEach((to,from,next)=>{
+  console.log("****beforeEach****");
+  next();
+});
+router.beforeResolve((to,from,next)=>{
+  console.log("****beforeResolve****");
+  next();
+});
+router.afterEach((to,from,next)=>{
+  console.log("****afterEach****");
+});
