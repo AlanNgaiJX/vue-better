@@ -6,8 +6,6 @@
     <button class="btn-destroy" @click="destroyMyself">click Here , i will destroy myself</button>
     <button class="btnto" @click="toRoute('/c')">toC</button>
     <button class="btnback" @click="back">back</button>
-    <button class="btnto" @click="toRoute('/B/2')">toB2</button>
-     <button class="btnto" @click="toRoute('/B/3')">toB3</button>
   </div>
 </template>
 
@@ -24,56 +22,28 @@ export default {
     };
   },
   beforeRouteEnter(to, from, next) {
-    console.log("now beforeRouteEnter work");
 
-    let cacheQueue = to.meta.cacheQueue;
+    
+    let cacheQueue = to.meta.cacheQueue;    
     const fullPath = to.fullPath;
     next(vm => {
-      vm.q = to.params.bNum;
+      vm.q = to.query.bNum;
 
       if (!cacheQueue.includes(fullPath)) {
         vm.fetchStroageStr();
-        if (cacheQueue.length >= 3) {
+        if (cacheQueue.length >=3) {
           cacheQueue.shift();
           cacheQueue.push(fullPath);
         } else {
           cacheQueue.push(fullPath);
         }
         console.log(cacheQueue);
+
       }
     });
   },
-  beforeRouteUpdate() {
-    console.log("now beforeRouteUpdate work");
-    // next();
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log("now beforeRouteLeave work");
-    next();
-  },
-  beforeCreate() {
-    console.log("now beforeCreate work");
-  },
-  created() {
-    console.log("now created work");
-  },
-  beforeMount() {
-    console.log("now beforeMount work");
-  },
-  mounted() {
-    console.log("now mounted work");
-  },
-  beforeUpdate() {
-    console.log("now beforeUpdate work");
-  },
-  updated() {
-    console.log("now updated work");
-  },
-  activated() {
-    console.log("now activated work");
-  },
-  deactivated() {
-    console.log("now deactivated work");
+  beforeRouteUpdate(){
+    console.log("beforeUpdate");
   },
   methods: {
     destroyMyself() {

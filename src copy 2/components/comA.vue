@@ -23,8 +23,7 @@ export default {
   },
   methods: {
     toRoute(num) {
-      // this.$router.push({name:'comB',query:{bNum:num}});
-      this.$router.push({path:`/B/${num}`});
+      this.$router.push({name:'comB',query:{bNum:num}});
     }
   }
 };

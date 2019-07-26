@@ -19,7 +19,7 @@ export const router = new Router({
       component: comA
     },
     {
-      path: '/B/:id',
+      path: '/B',
       name: 'comB',
       component: comB,
       meta:{
