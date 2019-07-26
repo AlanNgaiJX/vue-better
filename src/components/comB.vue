@@ -22,28 +22,56 @@ export default {
     };
   },
   beforeRouteEnter(to, from, next) {
+    console.log("beforeRouteEnter work");
 
-    
-    let cacheQueue = to.meta.cacheQueue;    
+    let cacheQueue = to.meta.cacheQueue;
     const fullPath = to.fullPath;
     next(vm => {
       vm.q = to.query.bNum;
 
       if (!cacheQueue.includes(fullPath)) {
         vm.fetchStroageStr();
-        if (cacheQueue.length >=3) {
+        if (cacheQueue.length >= 3) {
           cacheQueue.shift();
           cacheQueue.push(fullPath);
         } else {
           cacheQueue.push(fullPath);
         }
         console.log(cacheQueue);
-
       }
     });
   },
-  beforeRouteUpdate(){
-    console.log("beforeUpdate");
+  beforeRouteUpdate(to, from, next) {
+    next();
+    console.log("beforeRouteUpdate work");
+  },
+  beforeRouteLeave(to, from, next) {
+    next();
+    console.log("beforeRouteLeave work");
+  },
+  beforeCreate() {
+    console.log("beforeCreate work");
+  },
+  created() {
+    console.log("created work");
+  },
+  beforeMount() {
+    console.log("beforeMount work");
+  },
+  mounted() {
+    console.log("mounted work");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate work");
+  },
+  updated() {
+    console.log("updated work");
+  },
+  activated() {
+    console.log("activated work");
+  },
+  deactivated() {
+    console.log("deactivated work");
   },
   methods: {
     destroyMyself() {
